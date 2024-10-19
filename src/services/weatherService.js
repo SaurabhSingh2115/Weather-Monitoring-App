@@ -53,15 +53,47 @@ const formatCurrent = (data) => {
     details,
     icon: iconUrlFromCode(icon),
     formattedLocalTime,
+    dt,
+    timezone,
   };
 };
 
+const formattedForeCastWeather = (secs, offset, data) => {
+  const hourly = data
+    .filter((f) => f.dt > secs)
+    .slice(0, 5)
+    .map((f) => ({
+      temp: f.main.temp,
+      title: formatToLocalTime(f.dt, offset, "hh:mm a"),
+      icon: iconUrlFromCode(f.weather[0].icon),
+      date: f.dt_txt,
+    }));
+
+  const daily = data
+    .filter((f) => f.dt_txt.slice(-8) === "00:00:00")
+    .map((f) => ({
+      temp: f.main.temp,
+      title: formatToLocalTime(f.dt, offset, "ccc"),
+      icon: iconUrlFromCode(f.weather[0].icon),
+      date: f.dt_txt,
+    }));
+
+  return { hourly, daily };
+};
 const getFormattedWeatherData = async (searchParams) => {
   const formattedCurrentWeather = await getWeatherData(
     "weather",
     searchParams
   ).then(formatCurrent);
-  return { ...formattedCurrentWeather };
+
+  const { dt, lat, lon, timezone } = formattedCurrentWeather;
+
+  const formattedForecastWeather = await getWeatherData("forecast", {
+    lat,
+    lon,
+    units: searchParams.units,
+  }).then((d) => formattedForeCastWeather(dt, timezone, d.list));
+  return { ...formattedCurrentWeather, ...formattedForecastWeather };
 };
 
 export default getFormattedWeatherData;

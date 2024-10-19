@@ -1,4 +1,4 @@
-const NavigationButtons = () => {
+const NavigationButtons = ({ setQuery }) => {
   const metro_cities = [
     { id: 1, name: "Delhi" },
     { id: 2, name: "Mumbai" },
@@ -14,16 +14,11 @@ const NavigationButtons = () => {
         <button
           key={city.id}
           className="text-lg font-medium hover:bg-gray-700/20 px-3 py-2 rounded-md transition ease-in"
+          onClick={() => setQuery({ q: city.name })}
         >
           {city.name}
         </button>
       ))}
-      <button
-        className="text-lg font-medium hover:bg-gray-700/20 px-3 py-2
-      rounded-md transition ease-in"
-      >
-        Mumbai
-      </button>
     </div>
   );
 };

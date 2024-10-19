@@ -3,69 +3,80 @@ import { BiSolidDropletHalf } from "react-icons/bi";
 import { GiSunrise, GiSunset } from "react-icons/gi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { FiWind } from "react-icons/fi";
+import PropTypes from "prop-types";
 
-const verticalDetails = [
-  {
-    id: 1,
-    Icon: FaThermometerEmpty,
-    title: "Feels Like",
-    value: "22°",
+const TemperatureDetails = ({
+  weather: {
+    details,
+    icon,
+    temp,
+    temp_min,
+    temp_max,
+    feels_like,
+    sunrise,
+    sunset,
+    speed,
+    humidity,
   },
-  {
-    id: 2,
-    Icon: BiSolidDropletHalf,
-    title: "Humidity",
-    value: "64%", // Corrected humidity value
-  },
-  {
-    id: 3,
-    Icon: FiWind,
-    title: "Wind",
-    value: "11 km/h",
-  },
-];
+  units,
+}) => {
+  const verticalDetails = [
+    {
+      id: 1,
+      Icon: FaThermometerEmpty,
+      title: "Feels Like",
+      value: `${feels_like.toFixed()}°`,
+    },
+    {
+      id: 2,
+      Icon: BiSolidDropletHalf,
+      title: "Humidity",
+      value: `${humidity}%`,
+    },
+    {
+      id: 3,
+      Icon: FiWind,
+      title: "Wind",
+      value: `${speed.toFixed()} ${units === "metric" ? "km/h" : "m/s"}`,
+    },
+  ];
 
-const horizontalDetails = [
-  {
-    id: 1,
-    Icon: GiSunrise,
-    title: "Sunrise",
-    value: "05:33 AM",
-  },
-  {
-    id: 2,
-    Icon: GiSunset,
-    title: "Sunset",
-    value: "08:33 PM",
-  },
-  {
-    id: 3,
-    Icon: MdKeyboardArrowUp,
-    title: "Max temperature",
-    value: "33°",
-  },
-  {
-    id: 4,
-    Icon: MdKeyboardArrowDown,
-    title: "Min temperature",
-    value: "21°",
-  },
-];
+  const horizontalDetails = [
+    {
+      id: 1,
+      Icon: GiSunrise,
+      title: "Sunrise",
+      value: sunrise,
+    },
+    {
+      id: 2,
+      Icon: GiSunset,
+      title: "Sunset",
+      value: sunset,
+    },
+    {
+      id: 3,
+      Icon: MdKeyboardArrowUp,
+      title: "Max temperature",
+      value: `${temp_max.toFixed()}°`,
+    },
+    {
+      id: 4,
+      Icon: MdKeyboardArrowDown,
+      title: "Min temperature",
+      value: `${temp_min.toFixed()}°`,
+    },
+  ];
 
-const TemperatureDetails = () => {
   return (
     <div>
       <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
-        <p>Rain</p>
+        <p>{details}</p>
       </div>
 
       <div className="flex flex-row items-center justify-between py-3">
-        <img
-          src="http://openweathermap.org/img/wn/01d@2x.png"
-          alt="weather icon"
-          className="w-20"
-        />
-        <p className="text-5xl">30°</p>
+        <img src={icon} alt="weather icon" className="w-20" />
+        <p className="text-5xl">{`${temp.toFixed()}°`}</p>
         <div className="flex flex-col space-y-3 items-start">
           {verticalDetails.map(({ id, Icon, title, value }) => (
             <div key={id}>
@@ -91,6 +102,22 @@ const TemperatureDetails = () => {
       </div>
     </div>
   );
+};
+
+TemperatureDetails.propTypes = {
+  weather: PropTypes.shape({
+    details: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    temp: PropTypes.number.isRequired,
+    temp_min: PropTypes.number.isRequired,
+    temp_max: PropTypes.number.isRequired,
+    feels_like: PropTypes.number.isRequired,
+    sunrise: PropTypes.string.isRequired,
+    sunset: PropTypes.string.isRequired,
+    speed: PropTypes.number.isRequired,
+    humidity: PropTypes.number.isRequired,
+  }).isRequired,
+  units: PropTypes.string.isRequired,
 };
 
 export default TemperatureDetails;
