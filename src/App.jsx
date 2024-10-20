@@ -5,6 +5,7 @@ import TimeAndLocation from "./components/TimeAndLocation";
 import WeatherDetails from "./components/WeatherDetails";
 import Forecast from "./components/Forecast";
 import getFormattedWeatherData from "./services/weatherService";
+import ThresholdAlert from "./components/ThresholdAlert";
 
 const App = () => {
   const [query, setQuery] = useState({ q: "Delhi" });
@@ -41,6 +42,10 @@ const App = () => {
           <WeatherDetails weather={weather} units={units} />
           <Forecast title="3 hour step forecast" data={weather.hourly} />
           <Forecast title="daily forecast" data={weather.daily} />
+          <ThresholdAlert
+            temp={weather.temp}
+            weatherCondition={weather.details}
+          />
         </>
       )}
     </div>
