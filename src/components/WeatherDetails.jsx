@@ -4,6 +4,7 @@ import { GiSunrise, GiSunset } from "react-icons/gi";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { FiWind } from "react-icons/fi";
 import PropTypes from "prop-types";
+import GetWeatherSummary from "./GetWeatherSummary";
 
 const TemperatureDetails = ({
   weather: {
@@ -70,8 +71,9 @@ const TemperatureDetails = ({
 
   return (
     <div>
-      <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
+      <div className="flex flex-col items-center justify-center py-6 text-xl text-white">
         <p>{details}</p>
+        <GetWeatherSummary condition={details} />
       </div>
 
       <div className="flex flex-row items-center justify-between py-3">
@@ -99,6 +101,13 @@ const TemperatureDetails = ({
             </p>
           </div>
         ))}
+        <div className="flex flex-row items-center">
+          <img src={icon} alt="Weather Condition Icon" className="w-8 h-8" />
+          <p className="font-light ml-1">
+            Weather Condition:{" "}
+            <span className="font-medium ml-1">{details}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
