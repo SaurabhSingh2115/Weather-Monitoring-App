@@ -4,6 +4,10 @@
 
 The Weather Monitoring App is a real-time service designed to provide weather data for major Indian cities. This application allows users to retrieve current weather information, including temperature, humidity, and weather conditions, as well as access historical weather data stored in a MongoDB database. Built with the MERN stack (MongoDB, Express, React, Node.js), the app fetches data from the OpenWeatherMap API and displays it in a user-friendly interface. Users can view detailed weather information for specific cities and monitor temperature trends over time.
 
+## Demo Video Link:
+
+https://drive.google.com/file/d/1YSfPQO3dKUiD8ICOv3TgOcDoWYo9tNNd/view?usp=sharing
+
 ## Project Structure
 
 - `client/`: Contains the React frontend code.
@@ -55,19 +59,20 @@ This structure provides a clear separation of concerns, making it easier to mana
     {
       "name": "City Name",
       "country": "Country Code",
-      "temp": Temperature,
-      "feels_like": Feels Like Temperature,
-      "temp_min": Minimum Temperature,
-      "temp_max": Maximum Temperature,
-      "timestamp": "Timestamp of the data"
-    },
-    ...
+      "temp": "Temperature",
+      "feels_like": "Feels Like Temperature",
+      "temp_min": "Minimum Temperature",
+      "temp_max": "Maximum Temperature",
+      "timestamp": "Timestamp of the data",
+      "createdAt": "Time of creation",
+      "updatedAt": "Time of updation"
+    }
   ]
   ```
 
 ### Get Weather Data for a Specific City
 
-- **Endpoint:** `GET /weather-data/:city`
+- **Endpoint:** `GET /weather-data/city`
 - **Description:** Fetches the latest weather data for a specific city. Returns up to the last 10 entries for the specified city.
 - **Parameters:**
   - `city`: The name of the city for which weather data is requested (case-sensitive).
@@ -77,13 +82,14 @@ This structure provides a clear separation of concerns, making it easier to mana
     {
       "name": "City Name",
       "country": "Country Code",
-      "temp": Temperature,
-      "feels_like": Feels Like Temperature,
-      "temp_min": Minimum Temperature,
-      "temp_max": Maximum Temperature,
-      "timestamp": "Timestamp of the data"
-    },
-    ...
+      "temp": "Temperature",
+      "feels_like": "Feels Like Temperature",
+      "temp_min": "Minimum Temperature",
+      "temp_max": "Maximum Temperature",
+      "timestamp": "Timestamp of the data",
+      "createdAt": "Time of creation",
+      "updatedAt": "Time of updation"
+    }
   ]
   ```
 
