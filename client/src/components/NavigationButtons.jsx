@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const NavigationButtons = ({ setQuery }) => {
   const metro_cities = [
     { id: 1, name: "Delhi" },
@@ -23,4 +24,7 @@ const NavigationButtons = ({ setQuery }) => {
   );
 };
 
+NavigationButtons.propTypes = {
+  setQuery: PropTypes.func.isRequired,
+};
 export default NavigationButtons;

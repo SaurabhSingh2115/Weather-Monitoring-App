@@ -4,8 +4,12 @@ import mongoose from "mongoose";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import connectDB from "./db/connect.js";
+import cors from "cors";
 
 dotenv.config();
+
+const app = express();
+app.use(cors());
 
 const API_KEY = "96273f18aa48cba02ab66dae8f5b976c";
 const BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
@@ -115,8 +119,6 @@ const saveWeatherData = async (weatherData) => {
     throw error;
   }
 };
-
-const app = express();
 
 // Route to get weather data for all cities
 app.get("/weather-data", async (req, res) => {

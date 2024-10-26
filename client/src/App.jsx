@@ -6,6 +6,7 @@ import WeatherDetails from "./components/WeatherDetails";
 import Forecast from "./components/Forecast";
 import getFormattedWeatherData from "./services/weatherService";
 import ThresholdAlert from "./components/ThresholdAlert";
+import TemperatureHistory from "./components/TemperatureHistory";
 
 const App = () => {
   const [query, setQuery] = useState({ q: "Delhi" });
@@ -23,10 +24,10 @@ const App = () => {
   }, [query, units]);
 
   const formattedBackground = () => {
-    if (!weather) return "from-cyan-600 to-blue-700";
+    if (!weather) return "from-slate-800 to-black"; // Default background if weather is not available
     const threshold = units === "metric" ? 20 : 60;
-    if (weather.temp <= threshold) return "from-cyan-600 to-blue-700";
-    return "from-yellow-400 to-orange-700";
+    if (weather.temp <= threshold) return "from-gray-800 to-gray-900"; // Dark grey for lower temperatures
+    return "from-purple-800 to-purple-900"; // Dark purple for higher temperatures
   };
 
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <WeatherDetails weather={weather} units={units} />
           <Forecast title="3 hour step forecast" data={weather.hourly} />
           <Forecast title="daily forecast" data={weather.daily} />
+          <TemperatureHistory />
           <ThresholdAlert
             temp={weather.temp}
             weatherCondition={weather.details}

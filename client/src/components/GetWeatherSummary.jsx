@@ -10,6 +10,8 @@ const weatherSummaries = {
   Thunderstorm:
     "A storm accompanied by thunder, lightning, and often heavy rain or hail.",
   Drizzle: "Light rain with fine drops of water falling steadily.",
+  Haze: "Reduced visibility due to fine dust or salt particles in the air.",
+  Smoke: "Bad air quality due to smoke particles in the air.",
 };
 
 const GetWeatherSummary = ({ condition }) => {
